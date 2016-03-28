@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Mario.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <link rel="stylesheet" type="text/css" href="./range.css">
+	<script language=javascript> 
+	
+		function Mario()//玛丽奥类
+		{
+			this.x=10;//X坐标
+			this.y=10;//Y坐标
+			this.move=function(flag)//玛丽移动的函数
+			{
+
+				switch(flag)
+				{
+					case 0:
+						var temp1=document.getElementById("img").style.top;//拿到绝对定位的top值
+						if(parseInt(temp1.slice(0,temp1.length-2)) - 5 <10)//判断是否到了边界
+						{
+							window.alert("已经走到了最上边");
+							document.getElementById("img").style.top="10px";
+							this.y=10;//存入Y坐标
+						}
+						else
+						{
+							document.getElementById("img").style.top=parseInt(temp1.slice(0,temp1.length-2))-5+"px";
+							this.y=parseInt(temp1.slice(0,temp1.length-2))-5//存入Y坐标
+						}
+					break;
+		
+					case 1:
+						var temp1=document.getElementById("img").style.left;//拿到绝对定位的left值
+						if(parseInt(temp1.slice(0,temp1.length-2)) + 5 > 460)
+						{
+							window.alert("已经走到了最右边");
+							document.getElementById("img").style.left="460px";
+							this.x=460//存入X坐标
+						}
+						else
+						{
+							document.getElementById("img").style.left=parseInt(temp1.slice(0,temp1.length-2))+5+"px";
+							this.x=parseInt(temp1.slice(0,temp1.length-2))+5//存入X坐标
+						}
+					break;
+					
+					case 2:
+						var temp1=document.getElementById("img").style.top;
+						if(parseInt(temp1.slice(0,temp1.length-2)) + 5 > 260)
+						{
+							window.alert("已经走到了最下边");
+							document.getElementById("img").style.top="260px";
+							this.y=260//存入Y坐标
+						}
+						else
+						{
+							document.getElementById("img").style.top=parseInt(temp1.slice(0,temp1.length-2))+5+"px";
+							this.y=parseInt(temp1.slice(0,temp1.length-2))+5//存入Y坐标
+						}
+					break;
+					
+					case 3:
+						var temp1=document.getElementById("img").style.left;
+						if(parseInt(temp1.slice(0,temp1.length-2)) -5  < 10)
+						{
+							window.alert("已经走到了最左边");
+							document.getElementById("img").style.left="10px";
+							this.x=10//存入X坐标
+						}
+						else
+						{
+							document.getElementById("img").style.left=parseInt(temp1.slice(0,temp1.length-2))-5+"px";
+							this.x=parseInt(temp1.slice(0,temp1.length-2))-5//存入X坐标
+						}
+					break;
+				}
+			}
+			
+			this.meet=function()//抓到函数，判断是否碰到敌人
+			{
+				var m=document.getElementById("img2").style.left;
+				m=parseInt(m.slice(0,m.length-2));//获得敌人的横坐标
+				var n=document.getElementById("img2").style.top;
+				n=parseInt(n.slice(0,n.length-2));//获得敌人的纵坐标
+				var m2=m+50;
+				var n2=n+50;
+				var x2=this.x+50;
+				var y2=this.y+50;
+				//window.alert("x是"+this.x+"x2是"+x2+"y是"+this.y+"y2是"+y2+"m是"+m+"m2是"+m2+"n是"+n+"n2是"+n2);
+				if(((n<=this.y && this.y<=n2) || (n<=y2 && y2<=n2))&&((m<=this.x && this.x<=m2) || (m<=x2 && x2<=m2)))//javascript不支持a<b<c这种写法，要分开写
+				{
+					window.alert("抓到了");
+				}
+			}		
+		}
+			
+		function CallMove(flag)//全局函数
+		{
+			switch(flag)
+			{
+				case 0://上键
+					p1.move(0);
+					p1.meet();
+				break;
+					
+				case 1://右键
+					p1.move(1);
+					p1.meet();
+				break;
+				
+				case 2://下键
+					p1.move(2);
+					p1.meet();
+				break;
+				
+				case 3://左键
+					p1.move(3);
+					p1.meet();
+				break;
+			}
+		}
+
+		var p1=new Mario();//初始化一个对象
+		
+	
+	</script>
+  </head>
+  
+  <body>
+    <div class="range">
+    	<img src="image/touxiang.jpg" id="img" style="position:absolute;width: 50px;height: 50px;left: 10px;top: 10px;" />
+    	<img src="image/diren.jpg" id="img2" style="position:absolute;width: 50px;height: 50px;left: 100px;top: 10px;" />
+    </div>
+    <table border="1px">
+    	<tr align="center"><td colspan="3">按键操作</td></tr>
+    	<tr><td></td><td><input type="button" value="向上走" onclick="CallMove(0)"/></td><td></td></tr>
+    	<tr><td><input type="button" value="向左走" onclick="CallMove(3)"/></td><td><input type="button" value="向下走" onclick="CallMove(2)"/></td><td><input type="button" value="向右走" onclick="CallMove(1)"/></td></tr>
+    </table>
+  </body>
+</html>
